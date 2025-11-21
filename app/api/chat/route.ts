@@ -4,8 +4,8 @@ import { CollectionStage } from '@/lib/resume-schema'
 import { getStagePrompt } from '@/lib/conversation-flow'
 import type { PartialResume } from '@/lib/resume-schema'
 
-// 暂时使用 nodejs runtime，edge runtime 可能在某些环境下有问题
-// export const runtime = 'edge' // Cloudflare 兼容
+// Cloudflare Pages 使用 edge runtime
+export const runtime = 'edge'
 
 interface ChatMessage {
   role: 'user' | 'assistant' | 'system'

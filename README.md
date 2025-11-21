@@ -82,19 +82,66 @@ npm start
 3. **查看预览**：随时点击"查看预览"按钮查看已收集的信息
 4. **导出 Word**：完成所有信息收集后，点击"导出Word文档"按钮
 
-## 部署到 Cloudflare
+## 部署到 Cloudflare Pages
 
-### Cloudflare Pages
+### 通过 GitHub 导入部署
 
-1. 连接 GitHub 仓库到 Cloudflare Pages
-2. 构建命令：`npm run build`
-3. 输出目录：`.next`
-4. 环境变量：在 Cloudflare 控制台添加 `DEEPSEEK_API_KEY`
+1. **准备 GitHub 仓库**
+   - 确保代码已推送到 GitHub
+   - 确保 `.env.local` 和 `.dev.vars` 已添加到 `.gitignore`（不会提交敏感信息）
+
+2. **在 Cloudflare Pages 中导入项目**
+   - 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)
+   - 进入 **Pages** → **Create a project** → **Connect to Git**
+   - 选择你的 GitHub 仓库
+   - 配置构建设置：
+     - **Framework preset**: `Next.js`
+     - **Build command**: `npm run build:cf`
+     - **Build output directory**: `.vercel/output/static`
+     - **Root directory**: `/` (默认)
+     - **Node version**: `18` (或更高)
+
+3. **配置环境变量**
+   - 在项目设置中，进入 **Settings** → **Environment variables**
+   - 添加以下环境变量：
+     - `DEEPSEEK_API_KEY`: 你的 DeepSeek API 密钥
+   - 确保在 **Production**、**Preview** 和 **Branch** 环境中都添加
+
+4. **部署**
+   - 点击 **Save and Deploy**
+   - Cloudflare 会自动构建并部署你的项目
+   - 部署完成后，你会获得一个 `*.pages.dev` 的域名
+
+### 本地测试 Cloudflare 构建
+
+```bash
+# 安装依赖
+npm install
+
+# 构建 Next.js 应用
+npm run build
+
+# 构建 Cloudflare Pages 版本
+npm run build:cf
+
+# 本地预览（需要 wrangler）
+npm run preview
+```
 
 ### 环境变量配置
 
-在 Cloudflare Pages 设置中添加：
+**重要**：不要在代码仓库中提交 API 密钥！
+
+在 Cloudflare Pages 控制台的环境变量设置中添加：
 - `DEEPSEEK_API_KEY`：您的 DeepSeek API 密钥
+
+### 故障排除
+
+如果部署失败，检查：
+1. Node.js 版本是否为 18 或更高
+2. 构建命令是否正确：`npm run build:cf`
+3. 环境变量是否已正确配置
+4. 查看 Cloudflare Pages 的构建日志
 
 ## 注意事项
 

@@ -1,0 +1,8 @@
+# Cloudflare Pages 构建时忽略的文件
+node_modules
+.next
+.vercel
+*.log
+.env*.local
+.dev.vars
+
