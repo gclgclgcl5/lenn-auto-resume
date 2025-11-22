@@ -197,6 +197,16 @@ function buildSystemPrompt(
 export async function POST(req: Request) {
   try {
     console.log('[API] POST /api/chat received')
+
+    // 临时调试：直接返回环境信息，不调用 DeepSeek
+    return new Response(
+      JSON.stringify({
+        envHasKey: !!process.env.DEEPSEEK_API_KEY,
+        nodeEnv: process.env.NODE_ENV || null,
+        message: 'debug only: no DeepSeek call executed',
+      }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    )
     
     // 检查环境变量
     if (!process.env.DEEPSEEK_API_KEY) {
