@@ -245,10 +245,10 @@ export async function POST(req: Request) {
     }
     const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     return new Response(
-      JSON.stringify({ 
-        error: 'Internal Server Error',
+      JSON.stringify({
+        error: errorMessage,
         message: errorMessage,
-        details: process.env.NODE_ENV === 'development' ? String(error) : undefined
+        details: String(error),
       }),
       { 
         status: 500,
@@ -257,4 +257,3 @@ export async function POST(req: Request) {
     )
   }
 }
-
