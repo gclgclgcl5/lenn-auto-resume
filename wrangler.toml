@@ -7,3 +7,4 @@ pages_build_output_dir = ".vercel/output/static"
 # [env.production.vars]
 # DEEPSEEK_API_KEY = "your_key_here"
 
+compatibility_flags = ["nodejs_compat"]
